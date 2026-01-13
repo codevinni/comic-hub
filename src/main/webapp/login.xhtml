@@ -1,0 +1,32 @@
+<ui:composition template="templates/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="body">
+    
+       <h:form id="loginForm">
+		
+		    <p:panel header="Entrar">
+		        <h:panelGrid columns="3"> 
+		        	
+		        	<p:outputLabel value="Email" for="mail" />
+		            <p:inputText id="mail" value="#{accountBean.user.mail}" required="true" requiredMessage="Insira um e-mail" />
+		            <p:message for="mail" />
+		
+		            <p:outputLabel value="Senha:" for="password" />
+		            <p:password id="password" value="#{accountBean.user.password}" required="true" requiredMessage="Insira uma senha" />
+		            <p:message for="password" />
+		
+		            <p:commandButton value="Logar" action="#{accountBean.doLogin}" update="@form" />
+		            
+		        </h:panelGrid>
+		    </p:panel>
+		</h:form>
+        
+        <p:button value="Não tem uma conta? Faça cadastro" outcome="signup" styleClass="ui-button-outlined"/>
+        
+    </ui:define>
+</ui:composition>

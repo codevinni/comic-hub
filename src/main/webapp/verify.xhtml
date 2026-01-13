@@ -1,0 +1,24 @@
+<ui:composition template="templates/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="body">
+	    <h:form id="verifyForm">
+	        <p:panel header="Verificação de E-mail">
+	           
+	            <h:panelGrid columns="1" cellpadding="7">
+	            
+	                <p:outputLabel value="Enviamos um código para #{accountBean.user.mail}" />
+	                <p:inputMask value="#{accountBean.userCode}" mask="999999" required="true" requiredMessage="Digite o código de 6 dígitos"/>
+	                <p:commandButton value="Confirmar Conta" action="#{accountBean.verifyAccount}" update="@form"/>
+	                
+	            </h:panelGrid>
+	            
+	        </p:panel>
+	    </h:form>
+	</ui:define>
+
+</ui:composition>
