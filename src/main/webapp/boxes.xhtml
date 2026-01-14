@@ -1,0 +1,65 @@
+<ui:composition template="templates/navigation-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="body">
+		<h:form id="boxForm">
+			<p:messages id="msgs" closable="true" />
+
+			<div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 10px;">
+
+				<ui:repeat value="#{boxBean.allBoxes}" var="box">
+					<p:commandLink action="#{boxBean.goToBoxDetails(box)}" immediate="true" ajax="false">
+
+						<p:card style="width: 15rem; background-color: #{box.color}">
+							<f:facet name="title">
+								#{box.identifier}
+							</f:facet>
+						</p:card>
+
+					</p:commandLink>
+				</ui:repeat>
+
+				<p:commandLink oncomplete="PF('addBoxDialog').show()" rendered="#{authUser.role == 'ADMIN'}">
+
+					<p:card style="width: 15rem;">
+						<f:facet name="title"> + NOVA CAIXA </f:facet>
+					</p:card>
+
+				</p:commandLink>
+			</div>
+
+			<p:dialog header="Nova Caixa" widgetVar="addBoxDialog" modal="true" responsive="true">
+
+				<h:panelGrid columns="2" cellpadding="5">
+
+					<p:outputLabel value="Número:" for="identifier" />
+					<p:inputMask id="identifier" value="#{boxBean.newBox.identifier}" required="true"
+						requiredMessage="Forneça um número" mask="99999" placeholder="Somente números" />
+
+					<p:outputLabel value="Cor:" for="color" />
+					<p:selectOneMenu id="color" value="#{boxBean.newBox.color}">
+						<f:selectItem itemLabel="Azul" itemValue="#A2D2FF" />
+						<f:selectItem itemLabel="Verde" itemValue="#C1FFD7" />
+						<f:selectItem itemLabel="Vermelho" itemValue="#FFADAD" />
+						<f:selectItem itemLabel="Roxo" itemValue="#E0C3FC" />
+						<f:selectItem itemLabel="Amarelo" itemValue="#FDFFB6" />
+						<f:selectItem itemLabel="Laranja" itemValue="#FFD6A5" />
+						<f:selectItem itemLabel="Rosa" itemValue="#FFC6FF" />
+						<f:selectItem itemLabel="Ciano" itemValue="#9BF6FF" />
+						<f:selectItem itemLabel="Cinza" itemValue="#F0F0F0" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton value="Salvar" action="#{boxBean.save}" update="boxForm"
+						oncomplete="PF('addBoxDialog').hide()" />
+				</f:facet>
+
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

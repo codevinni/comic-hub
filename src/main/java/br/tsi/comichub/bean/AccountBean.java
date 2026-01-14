@@ -24,8 +24,7 @@ public class AccountBean implements Serializable {
 		Account authenticatedUser = new AccountDAO().authenticate(user);
 		
 		if (authenticatedUser != null) {
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("authUser", authenticatedUser);
-			return "index?faces-redirect=true";
+			return authenticateSession(authenticatedUser);
 		}
 		
 		addErrorMessage("Usuário e/ou senha inválidos");
@@ -38,11 +37,17 @@ public class AccountBean implements Serializable {
 		
 		user = new Account();
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("authUser", null); 
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();; 
 		
 		return "login?faces-redirect=true";
 	}
 	
 	public String signUp() {
+		
+		if (new AccountDAO().findByEmail(user.getMail()) != null) {
+	        addErrorMessage("Este e-mail já está cadastrado!");
+	        return null;
+	    }
 		
 		this.generatedCode = String.valueOf((int)(Math.random() * 900000) + 100000);
 		
@@ -60,26 +65,29 @@ public class AccountBean implements Serializable {
 			
 			user.setVerified(true);
 			new AccountDAO().add(user);
-			return "index?faces-redirect=true";
+			
+			generatedCode = null;
+			userCode = null;
+			
+			return authenticateSession(user);
 		}
 		
 		addErrorMessage("Código incorreto!");
 		return null;
 	}
 	
+	public String authenticateSession(Account user) {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("authUser", user);
+		return "boxes?faces-redirect=true";
+	}
+	
     private void addErrorMessage(String msg) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, null));
     }
-	
+    
 	public Account getUser() {
 		return user;
 	}
-
-	public void setUser(Account user) {
-		this.user = user;
-	}
-
-	
 	
 	/**
 	 * @return the generatedCode
@@ -95,6 +103,10 @@ public class AccountBean implements Serializable {
 		return userCode;
 	}
 
+	public void setUser(Account user) {
+		this.user = user;
+	}
+	
 	/**
 	 * @param userCode the userCode to set
 	 */

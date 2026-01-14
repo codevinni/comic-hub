@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+>
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<title>Comic Hub</title>
+	</h:head>
+	
+	<h:body>
+	
+		<div id="header">
+		
+				<p:toolbar style="border: none; border-radius: 0; background-color: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.08); padding: 0.5rem 1rem; margin-bottom: 10px;">
+	    
+				    <f:facet name="left">
+				            <p:tag value="ComicHub" severity="" style="font-size: 1.5rem; font-weight: bold; padding: 5px 15px;" />
+				    </f:facet>
+				
+				    <f:facet name="right">
+				        <div style="display: flex; align-items: center; gap: 20px;">
+				            
+				            <div style="text-align: right; line-height: 1.1;">
+				                <h:outputText value="#{authUser.mail}" style="font-weight: bold; display: block; color: #495057;" />
+				                <p:badge value="#{authUser.role.label}" severity="info" style="font-size: 0.75rem;" />
+				            </div>
+				            
+				            <p:divider layout="vertical" />
+				            
+		            		<h:form id="headerForm">
+				            	<p:commandButton icon="pi pi-sign-out" value="Sair" action="#{accountBean.doLogout}" process="@this" styleClass="ui-button-flat ui-button-danger" ajax="false" />
+				        	</h:form>
+				        </div>
+				    </f:facet>
+				
+				</p:toolbar>
+	    
+	    		<p:splitter style="height: calc(100vh - 80px); border: none;">
+	    		
+	    			<p:splitterPanel size="15" minSize="15">
+					    <p:tabMenu activeIndex="#{param.i}"  orientation="left">
+					    
+					        <p:menuitem value="Caixas" outcome="boxes.xhtml" icon="pi pi-box">
+					            <f:param name="i" value="0"/>
+					        </p:menuitem>
+					        
+					        <p:menuitem value="Usuários" outcome="" icon="pi pi-users" rendered="#{authUser.role == 'ADMIN'}">
+					            <f:param name="i" value="1"/>
+					        </p:menuitem>
+					        
+					        <p:menuitem value="Empréstimos" outcome="" icon="pi pi-sync">
+					            <f:param name="i" value="2"/>
+					        </p:menuitem>
+					        
+					        <p:menuitem value="Relatório" outcome="report.xhtml" icon="pi pi-file" rendered="#{authUser.role == 'ADMIN'}">
+					            <f:param name="i" value="3"/>
+					        </p:menuitem>
+					        
+					    </p:tabMenu>
+				    </p:splitterPanel>
+				    
+				    <p:splitterPanel size="85" minSize="85">
+				    	<div id="content">
+				    	
+							<p:messages id="msgGlobal" globalOnly="true" closable="true">
+						        <p:autoUpdate />
+						    </p:messages>
+						    
+							<ui:insert name="body"></ui:insert>
+							
+						</div>
+				    </p:splitterPanel>
+				    
+			    </p:splitter>
+			
+		</div>
+			
+	</h:body>
+</html>

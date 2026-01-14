@@ -24,9 +24,8 @@ public class AccountDAO extends DAO<Account>{
 		
 		try(EntityManager em = JPAUtil.getEntityManager()){
 		
-			Query query = em.createQuery("SELECT u FROM Account u WHERE u.mail = :mail", Account.class);
-			
-			query.setParameter("mail", user.getMail());
+			Query query = em.createQuery("SELECT u FROM Account u WHERE u.mail = :mail", Account.class)
+					        .setParameter("mail", user.getMail());
 			
 			try {
 				Account foundUser =  (Account)query.getSingleResult();
@@ -40,6 +39,20 @@ public class AccountDAO extends DAO<Account>{
 				return null;
 			}
 		}
+	}
+	
+	public Account findByEmail(String mail) {
+		
+	    try (EntityManager em = JPAUtil.getEntityManager()) {
+	    	
+	    	Query query = em.createQuery("SELECT a FROM Account a WHERE a.mail = :mail", Account.class)
+	    			        .setParameter("mail", mail);
+	        
+	        return (Account) query.getSingleResult();
+	        
+	    } catch (NoResultException e) {
+	        return null;
+	    }
 	}
 	
 	@Override
