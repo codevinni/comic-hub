@@ -1,50 +1,59 @@
-<ui:composition template="templates/main-template.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
-    
-    <ui:define name="body">
-    
-       <h:form id="signupForm">
-		
-		    <p:panel header="Cadastro">
-		        <h:panelGrid columns="3"> 
-		        
-		        	<p:outputLabel value="Nome:" for="name" />
-		            <p:inputText id="name" value="#{accountBean.user.name}" required="true" requiredMessage="Insira um nome" />
-		            <p:message for="name" />
-		
-					<p:outputLabel value="CPF:" for="cpf" />
-		            <p:inputMask id="cpf" value="#{accountBean.user.cpf}" required="true" requiredMessage="Insira um CPF" mask="999.999.999-99" validateMask="true"/>
-		            <p:message for="cpf" />
-		
-					<p:outputLabel value="Data de nascimento:" for="birth" />
-					<p:datePicker id="birth" value="#{accountBean.user.birth}" mask="99/99/9999" monthNavigator="true" yearNavigator="true" required="true" requiredMessage="Escolha uma data"/>
-					<p:message for="birth" />
-		
-					<p:outputLabel value="E-mail:" for="mail" />
-		            <p:inputText id="mail" value="#{accountBean.user.mail}" required="true" requiredMessage="Insira um e-mail" />
-		            <p:message for="mail" />
-		
-					<p:outputLabel value="Telefone:" for="phoneNumber" />
-		            <p:inputMask id="phoneNumber" value="#{accountBean.user.phoneNumber}" required="true" requiredMessage="Insira um número de telefone" mask="(99) 99999-9999" validateMask="true"/>
-		            <p:message for="phoneNumber" />
-		
-		            <p:outputLabel value="Senha:" for="password" />
-		            <p:password id="password" value="#{accountBean.user.password}" required="true" requiredMessage="Insira uma senha" />
-		            <p:message for="password" />
-		    
-		        </h:panelGrid>
-		        
-	            <p:commandButton value="Cadastrar" action="#{accountBean.signUp}" update="@form" />
-		            
-		    </p:panel>
-		</h:form>
-		
-		<p:button value="Já cadastrado? Faça login" outcome="login" styleClass="ui-button-outlined"/>
-		
-        
-    </ui:define>
+<ui:composition template="templates/main-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="body">
+
+		<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px;">
+			<h:form id="signupForm">
+
+				<p:panel header="Cadastro">
+					<h:panelGrid columns="3">
+
+						<p:outputLabel value="Nome:" for="name" />
+						<p:inputText id="name" value="#{accountBean.user.name}" required="true"
+							requiredMessage="Insira um nome" />
+						<p:message for="name" />
+
+						<p:outputLabel value="CPF:" for="cpf" />
+						<p:inputMask id="cpf" value="#{accountBean.user.cpf}" required="true"
+							requiredMessage="Insira um CPF" mask="999.999.999-99" validateMask="true" />
+						<p:message for="cpf" />
+
+						<p:outputLabel value="Data de nascimento:" for="birth" />
+						<p:datePicker id="birth" value="#{accountBean.user.birth}" mask="99/99/9999"
+							monthNavigator="true" yearNavigator="true" required="true"
+							requiredMessage="Escolha uma data" />
+						<p:message for="birth" />
+
+						<p:outputLabel value="E-mail:" for="mail" />
+						<p:inputText id="mail" value="#{accountBean.user.mail}" required="true"
+							requiredMessage="Insira um e-mail" />
+						<p:message for="mail" />
+
+						<p:outputLabel value="Telefone:" for="phoneNumber" />
+						<p:inputMask id="phoneNumber" value="#{accountBean.user.phoneNumber}" required="true"
+							requiredMessage="Insira um número de telefone" mask="(99) 99999-9999" validateMask="true" />
+						<p:message for="phoneNumber" />
+
+						<p:outputLabel value="Senha:" for="password" />
+						<p:password id="password" value="#{accountBean.user.password}" required="true"
+							requiredMessage="Insira uma senha" />
+						<p:message for="password" />
+
+					</h:panelGrid>
+
+					<f:facet name="footer">
+						<div style="text-align: center;">
+							<p:commandButton value="Cadastrar" action="#{accountBean.signUp}" update="@form" />
+						</div>
+					</f:facet>
+				</p:panel>
+			</h:form>
+
+			<h:link outcome="login" value="Já cadastrado? Faça login"
+				style="color: #007ad9; text-decoration: none; font-weight: 500; cursor: pointer;" />
+		</div>
+
+	</ui:define>
 </ui:composition>

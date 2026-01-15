@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="templates/main-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="body">
+        <div
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center;">
+
+            <p:panel style="max-width: 500px;">
+                <f:facet name="header">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: var(--red-500);"></i>
+                        <span style="font-size: 1.5rem; font-weight: bold;">Erro de Acesso</span>
+                    </div>
+                </f:facet>
+
+                <div style="padding: 20px;">
+                    <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                        Essa página não existe ou você não tem permissão para acessar esta página.
+                    </p>
+
+                    <p style="color: #666; margin-bottom: 30px;">
+                        Faça login com uma conta ou volte para o início.
+                    </p>
+
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <p:button value="Voltar ao Início" outcome="boxes" icon="pi pi-home"
+                            styleClass="ui-button-info" />
+                        <p:button value="Fazer Login" outcome="login" icon="pi pi-sign-in"
+                            styleClass="ui-button-primary" />
+                    </div>
+                </div>
+            </p:panel>
+
+        </div>
+    </ui:define>
+</ui:composition>

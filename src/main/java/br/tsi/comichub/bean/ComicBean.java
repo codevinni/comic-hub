@@ -23,24 +23,25 @@ public class ComicBean implements Serializable {
 	private Box currentBox;
 
 	public void loadBox() {
+		
 		if (boxId != null) {
+			
 			this.currentBox = new DAO<Box>(Box.class).searchById(boxId);
 			
-			if (currentBox != null) {
+			if (currentBox != null) 
 				this.allComics = new ComicDAO().findByBox(currentBox);
-			}
 		}
 	}
 
 	public void save() {
-		if (currentBox == null) {
-			// Tratamento de erro ou recarregar
+		
+		if (currentBox == null)
 			return;
-		}
+		
 		newComic.setBox(currentBox);
 		new DAO<Comic>(Comic.class).add(newComic);
+		
 		newComic = new Comic();
-		// Recarregar lista
 		this.allComics = new ComicDAO().findByBox(currentBox);
 	}
 

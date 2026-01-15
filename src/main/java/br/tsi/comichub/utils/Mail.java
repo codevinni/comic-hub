@@ -15,14 +15,22 @@ public class Mail {
     
     public boolean sendCode(String destination, String code) {
         
+    	String subject = "ComicHub - Seu código de acesso",
+    		   content = "Olá! Seu código de verificação é: " + code;
+    	
+    	return sendMail(destination, content, subject);
+    }
+    
+    public boolean sendMail(String destination, String content, String subject) {
+        
         final MailtrapConfig config = new MailtrapConfig.Builder().token(TOKEN).build();
         final MailtrapClient client = MailtrapClientFactory.createMailtrapClient(config);
 
         final MailtrapMail mail = MailtrapMail.builder()
             .from(new Address("hello@demomailtrap.co", "ComicHub"))
             .to(List.of(new Address(destination)))
-            .subject("Seu código de acesso")
-            .text("Olá! Seu código de verificação é: " + code)
+            .subject(subject)
+            .text(content)
             .build();
 
         try {
@@ -34,4 +42,6 @@ public class Mail {
             return false;
         }
     }
+    
+    
 }

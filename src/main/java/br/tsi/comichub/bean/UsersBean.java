@@ -11,17 +11,24 @@ import jakarta.inject.Named;
 
 @Named("usersBean")
 @ViewScoped
-public class UsersBean implements Serializable{
+public class UsersBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Account newUser = new Account();
 	private List<Account> allUsers;
-	
+
+	public void loadUsers() {
+		allUsers = new AccountDAO().listAll();
+	}
+
 	public void save() {
 		newUser.setVerified(true); // Se o admin esta adicionando, ja considera verificado
+
 		new DAO<Account>(Account.class).add(newUser);
 		newUser = new Account();
+		
+		loadUsers(); // Recarrega a lista após salvar
 	}
 
 	/**
@@ -35,7 +42,9 @@ public class UsersBean implements Serializable{
 	 * @return the allUsers
 	 */
 	public List<Account> getAllUsers() {
-		allUsers = new AccountDAO().listAll();
+		if (allUsers == null) {
+			loadUsers();
+		}
 		return allUsers;
 	}
 
@@ -52,8 +61,5 @@ public class UsersBean implements Serializable{
 	public void setAllUsers(List<Account> allUsers) {
 		this.allUsers = allUsers;
 	}
-	
-	
-	
 
 }
