@@ -49,15 +49,15 @@
 					            <f:param name="i" value="0"/>
 					        </p:menuitem>
 					        
-					        <p:menuitem value="Usuários" outcome="" icon="pi pi-users" rendered="#{authUser.role == 'ADMIN'}">
+					        <p:menuitem value="Empréstimos" outcome="loans.xhtml" icon="pi pi-sync">
 					            <f:param name="i" value="1"/>
 					        </p:menuitem>
 					        
-					        <p:menuitem value="Empréstimos" outcome="" icon="pi pi-sync">
+					        <p:menuitem value="Usuários" outcome="users.xhtml" icon="pi pi-users" rendered="#{authUser.role == 'ADMIN'}">
 					            <f:param name="i" value="2"/>
 					        </p:menuitem>
 					        
-					        <p:menuitem value="Relatório" outcome="report.xhtml" icon="pi pi-file" rendered="#{authUser.role == 'ADMIN'}">
+					        <p:menuitem value="Atrasos" outcome="late-loans.xhtml" icon="pi pi-fw pi-calendar-clock" rendered="#{authUser.role == 'ADMIN'}">
 					            <f:param name="i" value="3"/>
 					        </p:menuitem>
 					        

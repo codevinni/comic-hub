@@ -1,0 +1,61 @@
+<ui:composition template="templates/navigation-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="body">
+        <h:form id="loanForm">
+            <p:messages id="msgs" closable="true" />
+
+            <div style="margin-bottom: 20px;">
+                <h:outputText value="Meus Empréstimos" style="font-size: 2rem; font-weight: bold;" rendered="#{authUser.role == 'USER'}" />
+                <h:outputText value="Todos os Empréstimos" style="font-size: 2rem; font-weight: bold;" rendered="#{authUser.role == 'ADMIN'}" />
+            </div>
+
+			<h:outputText value="Nenhum empréstimo encontrado" rendered="#{empty loanBean.loans}"/>
+
+            <p:dataTable id="tableLoans" value="#{loanBean.loans}" var="loan" paginator="true" rows="10"
+                paginatorPosition="bottom" rendered="#{not empty loanBean.loans}" emptyMessage="Nenhum empréstimo encontrado">
+
+                <p:column headerText="Usuário" sortBy="#{loan.user.mail}" rendered="#{authUser.role == 'ADMIN'}"
+                		  filterBy="#{loan.user.mail}" filterMatchMode="contains" filterPlaceholder="Filtrar">
+                    <h:outputText value="#{loan.user.mail}" />
+                </p:column>
+                
+                <p:column headerText="Revista" sortBy="#{loan.comic.title}">
+                    <h:outputText value="#{loan.comic.title}" />
+                </p:column>
+                
+                 <p:column headerText="Coleção" sortBy="#{loan.comic.collection}">
+                    <h:outputText value="#{loan.comic.collection}" />
+                </p:column>
+
+                <p:column headerText="Data Empréstimo" sortBy="#{loan.loanDate}">
+                    <h:outputText value="#{loan.loanDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Previsão Devolução" sortBy="#{loan.predictedDevolutionDate}">
+                    <h:outputText value="#{loan.predictedDevolutionDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Data Devolução" rendered="#{authUser.role == 'ADMIN'}">
+                    <h:outputText value="#{loan.devolutionDate}" rendered="#{not empty loan.devolutionDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime" />
+                    </h:outputText>
+                    <p:tag value="Pendente" severity="warning" rendered="#{empty loan.devolutionDate}" />
+                </p:column>
+
+                <p:column headerText="" rendered="#{authUser.role == 'ADMIN'}">
+                    <p:commandButton value="Registrar Entrega" icon="pi pi-check"
+                        action="#{loanBean.registerReturn(loan)}" rendered="#{empty loan.devolutionDate}" update="@form"
+                        styleClass="ui-button-success" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

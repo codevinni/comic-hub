@@ -23,24 +23,29 @@
 				<h:panelGrid columns="3" cellpadding="7">
 
 					<p:outputLabel value="Título:" for="title" />
-					<p:inputText id="title" value="#{comicBean.newComic.title}" required="true" requiredMessage="Insira um título" />
+					<p:inputText id="title" value="#{comicBean.newComic.title}" required="true"
+						requiredMessage="Insira um título" />
 					<p:message for="title" />
 
 					<p:outputLabel value="Coleção:" for="collection" />
-					<p:inputText id="collection" value="#{comicBean.newComic.collection}" required="true" requiredMessage="Insira a coleção" />
+					<p:inputText id="collection" value="#{comicBean.newComic.collection}" required="true"
+						requiredMessage="Insira a coleção" />
 					<p:message for="collection" />
 
 					<p:outputLabel value="Edição:" for="edition" />
-					<p:inputText id="edition" value="#{comicBean.newComic.edition}" required="true" 
-						requiredMessage="Insira o número da edição" converterMessage="A edição deve ser um número inteiro (ex: 12)." />
+					<p:inputText id="edition" value="#{comicBean.newComic.edition}" required="true"
+						requiredMessage="Insira o número da edição"
+						converterMessage="A edição deve ser um número inteiro (ex: 12)." />
 					<p:message for="edition" />
 
 					<p:outputLabel value="Ano:" for="year" />
-					<p:inputMask id="year" value="#{comicBean.newComic.year}" required="true" mask="9999" requiredMessage="Insira o ano" />
+					<p:inputMask id="year" value="#{comicBean.newComic.year}" required="true" mask="9999"
+						requiredMessage="Insira o ano" />
 					<p:message for="year" />
 
 					<f:facet name="footer">
-						<p:commandButton value="Adicionar Revista" action="#{comicBean.save}" update="@form :comicForm" icon="pi pi-check" />
+						<p:commandButton value="Adicionar Revista" action="#{comicBean.save}" update="@form :comicForm"
+							icon="pi pi-check" />
 					</f:facet>
 
 				</h:panelGrid>
@@ -49,7 +54,7 @@
 
 		<h:form id="comicForm">
 
-			<h:outputText value="Nenhum quadrinho cadastrado nesta caixa." rendered="#{empty comicBean.allComics}"/>
+			<h:outputText value="Nenhum quadrinho cadastrado nesta caixa." rendered="#{empty comicBean.allComics}" />
 
 			<p:dataTable id="tableComics" value="#{comicBean.allComics}" var="comic" paginator="true" rows="5"
 				paginatorPosition="bottom" rendered="#{not empty comicBean.allComics}">
@@ -69,20 +74,20 @@
 				<p:column headerText="Ano">
 					<h:outputText value="#{comic.year}" />
 				</p:column>
-				
+
 				<p:column headerText="Status">
 					<p:tag value="#{comic.available ? 'Disponível' : 'Emprestado'}"
 						severity="#{comic.available ? 'success' : 'warning'}" />
 				</p:column>
-				
+
 
 				<p:column headerText="">
-					<p:commandButton value="Pedir Emprestado" icon="pi pi-shopping-bag" action="borrow.xhtml?faces-redirect=true"
-						rendered="#{authUser.role == 'USER' and comic.available}">
+					<p:commandButton value="Pedir Emprestado" icon="pi pi-shopping-bag" action="#{loanBean.save}"
+						rendered="#{authUser.role == 'USER' and comic.available}" update="@form">
 						<f:setPropertyActionListener value="#{comic}" target="#{loanBean.selectedComic}" />
 					</p:commandButton>
 				</p:column>
-				
+
 			</p:dataTable>
 		</h:form>
 	</ui:define>

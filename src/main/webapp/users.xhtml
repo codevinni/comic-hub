@@ -1,0 +1,71 @@
+<ui:composition template="templates/navigation-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="body">
+
+		<h:form id="newUserForm">
+		
+			<p:panel header="Adicionar novo usuário" style="margin-bottom: 20px;" toggleable="true" collapsed="true">
+				<h:panelGrid columns="3" cellpadding="7">
+
+					<p:outputLabel value="Nome:" for="name" />
+		            <p:inputText id="name" value="#{usersBean.newUser.name}" required="true" requiredMessage="Insira um nome" />
+		            <p:message for="name" />
+		
+					<p:outputLabel value="CPF:" for="cpf" />
+		            <p:inputMask id="cpf" value="#{usersBean.newUser.cpf}" required="true" requiredMessage="Insira um CPF" mask="999.999.999-99" validateMask="true"/>
+		            <p:message for="cpf" />
+		
+					<p:outputLabel value="Data de nascimento:" for="birth" />
+					<p:datePicker id="birth" value="#{usersBean.newUser.birth}" mask="99/99/9999" monthNavigator="true" yearNavigator="true" required="true" requiredMessage="Escolha uma data"/>
+					<p:message for="birth" />
+		
+					<p:outputLabel value="E-mail:" for="mail" />
+		            <p:inputText id="mail" value="#{usersBean.newUser.mail}" required="true" requiredMessage="Insira um e-mail" />
+		            <p:message for="mail" />
+		
+					<p:outputLabel value="Telefone:" for="phoneNumber" />
+		            <p:inputMask id="phoneNumber" value="#{usersBean.newUser.phoneNumber}" required="true" requiredMessage="Insira um número de telefone" mask="(99) 99999-9999" validateMask="true"/>
+		            <p:message for="phoneNumber" />
+		
+		            <p:outputLabel value="Senha:" for="password" />
+		            <p:password id="password" value="#{usersBean.newUser.password}" required="true" requiredMessage="Insira uma senha" />
+		            <p:message for="password" />
+
+					<f:facet name="footer">
+						<p:commandButton value="Adicionar Usuário" action="#{usersBean.save}" update="@form :userForm" icon="pi pi-check" />
+					</f:facet>
+
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<h:form id="userForm">
+
+			<h:outputText value="Nenhum usuário cadastrado no sistema" rendered="#{empty usersBean.allUsers}"/>
+
+			<p:dataTable id="tableUsers" value="#{usersBean.allUsers}" var="user" paginator="true" rows="5"
+				paginatorPosition="bottom" rendered="#{not empty usersBean.allUsers}">
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{user.name}" />
+				</p:column>
+
+				<p:column headerText="CPF">
+					<h:outputText value="#{user.cpf}" />
+				</p:column>
+
+				<p:column headerText="E-mail">
+					<h:outputText value="#{user.mail}" />
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{user.phoneNumber}" />
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
