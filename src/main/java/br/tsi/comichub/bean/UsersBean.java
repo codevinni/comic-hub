@@ -25,7 +25,7 @@ public class UsersBean implements Serializable {
 	public void save() {
 		newUser.setVerified(true); // Se o admin esta adicionando, ja considera verificado
 
-		new DAO<Account>(Account.class).add(newUser);
+		new AccountDAO().add(newUser);
 		newUser = new Account();
 		
 		loadUsers(); // Recarrega a lista após salvar
