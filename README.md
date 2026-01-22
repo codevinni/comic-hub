@@ -2,6 +2,8 @@
 
 **ComicHub** é uma plataforma de gerenciamento de quadrinhos desenvolvida para facilitar a organização, catalogação e empréstimo de revistas em quadrinhos. O sistema permite que administradores cadastrem caixas, quadrinhos e gerenciem usuários, enquanto leitores podem consultar o acervo disponível, realizar empréstimos e acompanhar suas devoluções através de notificações por e-mail.
 
+<img width="1851" height="817" alt="Captura de tela 2026-01-22 154843" src="https://github.com/user-attachments/assets/7c4ec393-43c1-4976-bd98-24d5af4178d9" />
+
 ## Sobre
 
 Este projeto foi desenvolvido como parte de um trabalho acadêmico com o objetivo de demonstrar a implementação de uma aplicação web completa utilizando o ecossistema Jakarta EE.
